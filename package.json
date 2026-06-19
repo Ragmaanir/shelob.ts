@@ -1,0 +1,35 @@
+{
+  "name": "shelob.ts",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "clean:linux": "rm -rf ./dist",
+    "clean:win": "rmdir /s /q .\\dist",
+    "clean": "node ./is_linux.js && pnpm run clean:linux || pnpm run clean:win",
+    "build": "pnpm run clean && tsc -p tsconfig.build.json",
+    "test": "tsc --noEmit && pnpm exec microtest test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pimpanzee": "github:Ragmaanir/pimpanzee#master"
+  },
+  "devDependencies": {
+    "microtest": "github:Ragmaanir/microtest.ts#main",
+    "typescript": "^5.8"
+  },
+  "packageManager": "pnpm@10.26.1"
+}
