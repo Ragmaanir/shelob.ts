@@ -2,6 +2,8 @@ import type { IncomingMessage, ServerResponse } from "node:http"
 import { type JSONValue, raise } from "pimpanzee"
 import { RequestMethod } from "./request_method.js"
 
+const BASIC_AUTH_HEADER = "authorization"
+
 export class HttpRequest {
   method: RequestMethod
   readonly started_at = Date.now()
@@ -16,6 +18,16 @@ export class HttpRequest {
 
   get url() {
     return this.req.url
+  }
+
+  basic_auth_header(): string | null {
+    const header = this.req.headers[BASIC_AUTH_HEADER]
+
+    if (Array.isArray(header)) {
+      return header[0] ?? null
+    }
+
+    return header ?? null
   }
 
   get body(): Promise<string> {

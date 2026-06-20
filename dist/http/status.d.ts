@@ -24,8 +24,22 @@ export declare class HttpStatus {
 }
 export declare const HttpStatuses: {
     OK: HttpStatus;
+    CREATED: HttpStatus;
+    ACCEPTED: HttpStatus;
+    NO_CONTENT: HttpStatus;
+    MOVED_PERMANENTLY: HttpStatus;
+    FOUND: HttpStatus;
+    NOT_MODIFIED: HttpStatus;
+    BAD_REQUEST: HttpStatus;
+    UNAUTHORIZED: HttpStatus;
+    FORBIDDEN: HttpStatus;
     NOT_FOUND: HttpStatus;
-    UNPROCESSABLE_ENTITY: HttpStatus;
     METHOD_NOT_ALLOWED: HttpStatus;
+    CONFLICT: HttpStatus;
+    UNSUPPORTED_MEDIA_TYPE: HttpStatus;
+    UNPROCESSABLE_ENTITY: HttpStatus;
+    TOO_MANY_REQUESTS: HttpStatus;
     INTERNAL_ERROR: HttpStatus;
+    BAD_GATEWAY: HttpStatus;
+    SERVICE_UNAVAILABLE: HttpStatus;
 };

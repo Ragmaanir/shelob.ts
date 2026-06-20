@@ -7,6 +7,7 @@ export declare class HttpRequest {
     readonly started_at: number;
     constructor(req: IncomingMessage);
     get url(): string | undefined;
+    basic_auth_header(): string | null;
     get body(): Promise<string>;
     get body_as_json(): Promise<JSONValue>;
     time_passed(): number;

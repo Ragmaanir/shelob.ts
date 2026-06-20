@@ -10,11 +10,24 @@ export enum StatusKind {
 export class HttpStatus {
   static NAMES = new Map<number, string>([
     [200, "OK"],
-    [400, "Client Error"],
+    [201, "Created"],
+    [202, "Accepted"],
+    [204, "No Content"],
+    [301, "Moved Permanently"],
+    [302, "Found"],
+    [304, "Not Modified"],
+    [400, "Bad Request"],
+    [401, "Unauthorized"],
+    [403, "Forbidden"],
     [404, "Not Found"],
     [405, "Method Not Allowed"],
+    [409, "Conflict"],
+    [415, "Unsupported Media Type"],
     [422, "Request could not be processed"],
-    [500, "Server Error"]
+    [429, "Too Many Requests"],
+    [500, "Internal Server Error"],
+    [502, "Bad Gateway"],
+    [503, "Service Unavailable"]
   ])
 
   static from_code(code: number): HttpStatus {
@@ -89,8 +102,22 @@ export class HttpStatus {
 
 export const HttpStatuses = {
   OK: new HttpStatus(200),
+  CREATED: new HttpStatus(201),
+  ACCEPTED: new HttpStatus(202),
+  NO_CONTENT: new HttpStatus(204),
+  MOVED_PERMANENTLY: new HttpStatus(301),
+  FOUND: new HttpStatus(302),
+  NOT_MODIFIED: new HttpStatus(304),
+  BAD_REQUEST: new HttpStatus(400),
+  UNAUTHORIZED: new HttpStatus(401),
+  FORBIDDEN: new HttpStatus(403),
   NOT_FOUND: new HttpStatus(404),
-  UNPROCESSABLE_ENTITY: new HttpStatus(422),
   METHOD_NOT_ALLOWED: new HttpStatus(405),
-  INTERNAL_ERROR: new HttpStatus(500)
+  CONFLICT: new HttpStatus(409),
+  UNSUPPORTED_MEDIA_TYPE: new HttpStatus(415),
+  UNPROCESSABLE_ENTITY: new HttpStatus(422),
+  TOO_MANY_REQUESTS: new HttpStatus(429),
+  INTERNAL_ERROR: new HttpStatus(500),
+  BAD_GATEWAY: new HttpStatus(502),
+  SERVICE_UNAVAILABLE: new HttpStatus(503)
 }
