@@ -16,7 +16,7 @@
   ],
   "scripts": {
     "clean:linux": "rm -rf ./dist",
-    "clean:win": "rmdir /s /q .\\dist",
+    "clean:win": "if exist .\\dist rmdir /s /q .\\dist",
     "clean": "node ./is_linux.js && pnpm run clean:linux || pnpm run clean:win",
     "build": "pnpm run clean && tsc -p tsconfig.build.json",
     "test": "tsc --noEmit && pnpm exec microtest test"
@@ -28,7 +28,10 @@
     "pimpanzee": "github:Ragmaanir/pimpanzee#master"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.15",
+    "@types/node": "^24.12.4",
     "microtest": "github:Ragmaanir/microtest.ts#main",
+    "tundra": "github:Ragmaanir/tundra",
     "typescript": "^5.8"
   },
   "packageManager": "pnpm@10.26.1"

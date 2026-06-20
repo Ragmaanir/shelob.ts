@@ -1,0 +1,9 @@
+{
+  "extends": ["tundra/biome"],
+  "files": {
+    "includes": [
+      "!**/node_modules",
+      "!**/dist"
+    ]
+  }
+}
