@@ -1,4 +1,4 @@
-import { MIMES } from "./mime.js";
+import { MIMES } from "pimpanzee";
 import { HttpStatuses } from "./status.js";
 export class HttpResult {
     status;

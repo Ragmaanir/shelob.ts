@@ -10,7 +10,7 @@ importers:
     dependencies:
       pimpanzee:
         specifier: github:Ragmaanir/pimpanzee#master
-        version: git+https://git@github.com:Ragmaanir/pimpanzee.git#eb6bd75783db1d2c96e9a52b2aca4626d9febe93
+        version: git+https://git@github.com:Ragmaanir/pimpanzee.git#9c6ad0b811228fffeabe67e75cce9638bbd3858b
     devDependencies:
       '@biomejs/biome':
         specifier: ^2.4.15
@@ -257,8 +257,8 @@ packages:
     version: 1.0.0
     hasBin: true
 
-  pimpanzee@git+https://git@github.com:Ragmaanir/pimpanzee.git#eb6bd75783db1d2c96e9a52b2aca4626d9febe93:
-    resolution: {commit: eb6bd75783db1d2c96e9a52b2aca4626d9febe93, repo: git@github.com:Ragmaanir/pimpanzee.git, type: git}
+  pimpanzee@git+https://git@github.com:Ragmaanir/pimpanzee.git#9c6ad0b811228fffeabe67e75cce9638bbd3858b:
+    resolution: {commit: 9c6ad0b811228fffeabe67e75cce9638bbd3858b, repo: git@github.com:Ragmaanir/pimpanzee.git, type: git}
     version: 0.1.0
 
   tsx@4.22.4:
@@ -433,7 +433,7 @@ snapshots:
     dependencies:
       tsx: 4.22.4
 
-  pimpanzee@git+https://git@github.com:Ragmaanir/pimpanzee.git#eb6bd75783db1d2c96e9a52b2aca4626d9febe93: {}
+  pimpanzee@git+https://git@github.com:Ragmaanir/pimpanzee.git#9c6ad0b811228fffeabe67e75cce9638bbd3858b: {}
 
   tsx@4.22.4:
     dependencies:

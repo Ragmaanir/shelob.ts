@@ -1,6 +1,5 @@
 import type { ReadStream } from "node:fs";
-import type { JSONValue } from "pimpanzee";
-import { type Mime } from "./mime.js";
+import { type JSONValue, type Mime } from "pimpanzee";
 import { type HttpStatus } from "./status.js";
 export type ErrorJson = {
     exception: {

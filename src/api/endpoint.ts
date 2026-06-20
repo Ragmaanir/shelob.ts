@@ -3,8 +3,8 @@ import type { HttpResult } from "../http/result.js"
 import type { ApiContext } from "./context.js"
 import type { HttpParams } from "./router.js"
 
-export abstract class Endpoint {
-  constructor(readonly ctx: ApiContext, readonly params: HttpParams) { }
+export abstract class Endpoint<C extends ApiContext> {
+  constructor(readonly ctx: C, readonly params: HttpParams) { }
 
   abstract call(): Promise<HttpResult>
 

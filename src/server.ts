@@ -1,14 +1,18 @@
 import { createServer, type IncomingMessage, type Server as NodeServer, type ServerResponse } from "node:http"
-import { ValidationException } from "pimpanzee"
 import { Router } from "./api/router.js"
+import { ErrorHandler } from "./handlers/error_handler.js"
+import { Handler } from "./handlers/handler.js"
+import { LogHandler } from "./handlers/log_handler.js"
+import { RouterHandler } from "./handlers/router_handler.js"
 import { HttpContext } from "./http/context.js"
 import { HttpRequest, HttpResponse } from "./http/http.js"
-import { HttpResult } from "./http/result.js"
-import { ServerExceptionResponse } from "./http/server_exception_response.js"
-import { HttpStatuses } from "./http/status.js"
 
 export type ServerOptions<C extends HttpContext> = {
   create_context?: (request: HttpRequest, response: HttpResponse) => C
+  error_handler?: ErrorHandler<C>
+  handler?: Handler<C>
+  handlers?: Handler<C>[]
+  log_handler?: LogHandler<C>
   router?: Router<C>
   show_internal_exceptions?: boolean
 }
@@ -16,10 +20,12 @@ export type ServerOptions<C extends HttpContext> = {
 export class Server<C extends HttpContext = HttpContext> {
   readonly server: NodeServer
   readonly router: Router<C>
+  readonly handler: Handler<C>
 
   constructor(readonly port: number, readonly options: ServerOptions<C> = {}) {
     this.server = createServer((req, res) => this.handle_request(req, res))
     this.router = options.router ?? new Router<C>()
+    this.handler = options.handler ?? this.build_handler_chain(options)
   }
 
   start() {
@@ -32,75 +38,21 @@ export class Server<C extends HttpContext = HttpContext> {
     const req = new HttpRequest(raw_req)
     const res = new HttpResponse(raw_res)
     const ctx = this.create_context(req, res)
-    const result = await this.process_request(ctx)
+    const result = await this.handler.call(ctx)
 
     ctx.apply_result(result)
-
-    res.raw.on("finish", () => {
-      console.log(`${req.method.padEnd(4, " ")} ${req.time_passed().toString().padStart(2, " ")}ms ${result.status.code} ${req.url}`)
-    })
   }
 
   private create_context(request: HttpRequest, response: HttpResponse): C {
     return this.options.create_context?.(request, response) ?? new HttpContext(request, response) as C
   }
 
-  private process_request(ctx: C): Promise<HttpResult> {
-    try {
-      const res = this.router.route(ctx)
+  private build_handler_chain(options: ServerOptions<C>): Handler<C> {
+    const handlers = options.handlers ?? [
+      options.log_handler ?? new LogHandler<C>(),
+      options.error_handler ?? new ErrorHandler<C>({ verbose: options.show_internal_exceptions })
+    ]
 
-      if (res) {
-        return res.catch(e => {
-          this.log_error(e)
-          return this.internal_error_result(e)
-        })
-      }
-
-      return Promise.resolve(HttpResult.status(HttpStatuses.NOT_FOUND))
-    } catch (e) {
-      this.log_error(e)
-      return Promise.resolve(this.internal_error_result(e))
-    }
+    return Handler.chain(handlers, new RouterHandler(this.router))
   }
-
-  private log_error(e: unknown) {
-    if (e instanceof ValidationException) {
-      console.error("ValidationException")
-      console.error(e.error.toString())
-    } else if (e instanceof Error) {
-      console.error(`Error(${e.constructor.name})`)
-      console.error(e.stack)
-    } else {
-      console.error(e)
-    }
-  }
-
-  private internal_error_result(e: unknown): HttpResult {
-    if (!this.options.show_internal_exceptions) {
-      return HttpResult.status(HttpStatuses.INTERNAL_ERROR)
-    }
-
-    if (e instanceof ValidationException) {
-      const body = {
-        exception: {
-          name: e.constructor.name,
-          message: String(e.message ?? "Validation failed")
-        },
-        validation_error: e.error
-      }
-
-      return HttpResult.error_json(body, HttpStatuses.UNPROCESSABLE_ENTITY)
-    }
-
-    if (e instanceof Error) {
-      const response = ServerExceptionResponse.from_exception(e)
-
-      return HttpResult.json(response.to_json(), HttpStatuses.INTERNAL_ERROR)
-    }
-
-    const response = new ServerExceptionResponse("UnknownError", String(e), "", [])
-
-    return HttpResult.json(response.to_json(), HttpStatuses.INTERNAL_ERROR)
-  }
-
 }

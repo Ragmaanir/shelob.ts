@@ -1,7 +1,7 @@
 import { createReadStream, existsSync } from "node:fs"
 import { extname, join } from "node:path"
+import { MIMES, Mime } from "pimpanzee"
 import type { HttpContext } from "../http/context.js"
-import { MIMES, Mime } from "../http/mime.js"
 import { HttpResult } from "../http/result.js"
 import { HttpStatuses } from "../http/status.js"
 
