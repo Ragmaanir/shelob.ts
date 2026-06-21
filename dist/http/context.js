@@ -12,7 +12,7 @@ export class HttpContext {
     get url() {
         return this.request.url;
     }
-    apply_result(r) {
+    apply_result(r, on_error) {
         const res = this.response.raw;
         res.setHeaders(r.headers);
         res.statusCode = r.status.code;
@@ -20,7 +20,7 @@ export class HttpContext {
         if (c instanceof ReadStream) {
             c.pipe(res);
             c.on("error", (e) => {
-                console.log(e); // TODO: logging
+                on_error(e);
                 res.statusCode = 500;
                 res.end("Error piping stream");
             });

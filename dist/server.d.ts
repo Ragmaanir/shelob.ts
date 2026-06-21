@@ -15,4 +15,5 @@ export declare class Server<C extends HttpContext = HttpContext> {
     start(): void;
     private handle_request;
     private create_context;
+    private log_internal_error;
 }

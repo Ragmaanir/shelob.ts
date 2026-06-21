@@ -6,5 +6,5 @@ export declare class HttpContext {
     constructor(request: HttpRequest, response: HttpResponse);
     get method(): import("./request_method.js").RequestMethod;
     get url(): string | undefined;
-    apply_result(r: HttpResult): void;
+    apply_result(r: HttpResult, on_error: (error: Error) => void): void;
 }

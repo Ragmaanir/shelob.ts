@@ -16,7 +16,7 @@ export class HttpContext {
     return this.request.url
   }
 
-  apply_result(r: HttpResult) {
+  apply_result(r: HttpResult, on_error: (error: Error) => void) {
     const res = this.response.raw
 
     res.setHeaders(r.headers)
@@ -28,7 +28,7 @@ export class HttpContext {
       c.pipe(res)
 
       c.on("error", (e) => {
-        console.log(e) // TODO: logging
+        on_error(e)
         res.statusCode = 500
         res.end("Error piping stream")
       })

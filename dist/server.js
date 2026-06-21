@@ -22,9 +22,12 @@ export class Server {
         const res = new HttpResponse(raw_res);
         const ctx = this.create_context(req, res);
         const result = await this.handler.call(ctx);
-        ctx.apply_result(result);
+        ctx.apply_result(result, (error) => this.log_internal_error(error));
     }
     create_context(request, response) {
         return this.options.create_context?.(request, response) ?? new HttpContext(request, response);
+    }
+    log_internal_error(error) {
+        console.error("Internal error", error);
     }
 }

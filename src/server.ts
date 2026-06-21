@@ -29,10 +29,14 @@ export class Server<C extends HttpContext = HttpContext> {
     const ctx = this.create_context(req, res)
     const result = await this.handler.call(ctx)
 
-    ctx.apply_result(result)
+    ctx.apply_result(result, (error) => this.log_internal_error(error))
   }
 
   private create_context(request: HttpRequest, response: HttpResponse): C {
     return this.options.create_context?.(request, response) ?? new HttpContext(request, response) as C
+  }
+
+  private log_internal_error(error: Error) {
+    console.error("Internal error", error)
   }
 }
