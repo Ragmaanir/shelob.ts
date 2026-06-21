@@ -1,24 +1,19 @@
-import { raise } from "pimpanzee"
-import type { HttpResult } from "../http/result.js"
 import type { ApiContext } from "./context.js"
-import type { HttpParams } from "./router.js"
+import type { Route, RouteResult } from "./routing/route.js"
 
 export abstract class Endpoint<C extends ApiContext> {
-  constructor(readonly ctx: C, readonly params: HttpParams) { }
+  constructor(
+    readonly ctx: C,
+    readonly route: Route
+  ) { }
 
-  abstract call(): Promise<HttpResult>
+  abstract call(): RouteResult
 
   protected fetch_param(param_name: string): string {
-    return this.params[param_name] ?? raise(`Param missing: ${param_name}`)
+    return this.route.fetch_param(param_name)
   }
 
   protected fetch_int(param_name: string): number | null {
-    const value = this.fetch_param(param_name)
-
-    if (!/^[+-]?\d+$/.test(value)) {
-      return null
-    }
-
-    return Number.parseInt(value, 10)
+    return this.route.fetch_int(param_name)
   }
 }

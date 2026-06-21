@@ -1,4 +1,4 @@
-import type { Router } from "../api/router.js"
+import type { Router } from "../api/routing/router.js"
 import type { HttpContext } from "../http/context.js"
 import { HttpResult } from "../http/result.js"
 import { HttpStatuses } from "../http/status.js"
