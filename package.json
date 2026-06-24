@@ -24,13 +24,14 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "pimpanzee": "github:Ragmaanir/pimpanzee#master"
+  "peerDependencies": {
+    "pimpanzee": "^0.1.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.15",
     "@types/node": "^24.12.4",
     "microtest": "github:Ragmaanir/microtest.ts#main",
+    "pimpanzee": "github:Ragmaanir/pimpanzee#master",
     "tundra": "github:Ragmaanir/tundra",
     "typescript": "^5.8"
   },

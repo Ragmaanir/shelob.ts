@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      pimpanzee:
-        specifier: github:Ragmaanir/pimpanzee#master
-        version: git+https://git@github.com:Ragmaanir/pimpanzee.git#9c6ad0b811228fffeabe67e75cce9638bbd3858b
     devDependencies:
       '@biomejs/biome':
         specifier: ^2.4.15
@@ -21,6 +17,9 @@ importers:
       microtest:
         specifier: github:Ragmaanir/microtest.ts#main
         version: microtest.ts@https://codeload.github.com/Ragmaanir/microtest.ts/tar.gz/78a2d5463091fde5725c3d835cc536f83cdb9aa2
+      pimpanzee:
+        specifier: github:Ragmaanir/pimpanzee#master
+        version: git+https://git@github.com:Ragmaanir/pimpanzee.git#9c6ad0b811228fffeabe67e75cce9638bbd3858b
       tundra:
         specifier: github:Ragmaanir/tundra
         version: https://codeload.github.com/Ragmaanir/tundra/tar.gz/c193f2c1974604a88d46083d6d6a76e033dea7f7
