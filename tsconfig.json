@@ -2,6 +2,7 @@
   "compilerOptions": {
     "noEmit": true,
     "target": "ESNext",
+    "types": ["node"],
     "lib": [
       "ESNext",
       "DOM"

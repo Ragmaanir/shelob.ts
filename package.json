@@ -29,11 +29,19 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.15",
-    "@types/node": "^24.12.4",
+    "@types/node": "^26.1.1",
     "microtest": "github:Ragmaanir/microtest.ts#main",
     "pimpanzee": "github:Ragmaanir/pimpanzee#master",
     "tundra": "github:Ragmaanir/tundra",
-    "typescript": "^5.8"
+    "typescript": "7.0.2"
   },
-  "packageManager": "pnpm@10.26.1"
+  "packageManager": "pnpm@10.26.1",
+  "engines": {
+    "node": "26.x"
+  },
+  "pnpm": {
+    "executionEnv": {
+      "nodeVersion": "26.13.1"
+    }
+  }
 }

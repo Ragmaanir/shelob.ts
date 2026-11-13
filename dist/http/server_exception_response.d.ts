@@ -5,9 +5,9 @@ export declare class ServerExceptionResponse {
     readonly cause_message: string | null;
     readonly stacktrace: ParsedStacktraceEntry[];
     static readonly Schema: import("pimpanzee").ObjectConverter<{
-        name: string;
-        message: string;
         cause_message: string | null;
+        message: string;
+        name: string;
         stacktrace: JSONValue[];
     }, {
         name: import("pimpanzee").StringConverter;

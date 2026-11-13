@@ -63,7 +63,7 @@ new Server(3000, {
 }).start()
 ```
 
-Start it with `node server.mts` on Node.js 24. In another terminal, request the main pump.
+Start it with `node server.mts` on Node.js 26 LTS. In another terminal, request the main pump.
 
 ```console
 $ curl -s http://localhost:3000/api/pumps/main
